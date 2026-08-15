@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subnet Pro - IPv4 Calculator</title>
     
-    <!-- Google Fonts for unique typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -17,99 +16,115 @@
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #0f0e17;
+            background: #f0f4f8;
             min-height: 100vh;
-            padding: 20px;
+            padding: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         
         .container {
-            max-width: 960px;
+            max-width: 1000px;
             width: 100%;
             margin: 0 auto;
-            background: #fffffe;
+            background: #ffffff;
             border-radius: 24px;
-            padding: 48px;
-            box-shadow: 0 25px 80px rgba(15, 14, 23, 0.4);
-            position: relative;
-            overflow: hidden;
+            padding: 40px 48px 48px;
+            box-shadow: 0 10px 40px rgba(0, 20, 50, 0.08);
+            border: 1px solid #e8edf4;
         }
         
-        /* Decorative accent line */
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #ff8906, #e53170, #6246ea);
-        }
-        
-        /* Header */
+        /* ===== HEADER ===== */
         .header {
+            text-align: center;
             margin-bottom: 32px;
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-        
-        .header-left {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
         }
         
         .logo {
             font-family: 'Inter', sans-serif;
-            font-weight: 800;
-            font-size: 2rem;
-            letter-spacing: -0.03em;
-            color: #0f0e17;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-weight: 900;
+            font-size: 2.2rem;
+            letter-spacing: -0.02em;
+            color: #0a1628;
         }
         
         .logo span {
-            color: #6246ea;
+            color: #1a56db;
         }
         
         .logo .accent {
-            color: #ff8906;
+            color: #0a1628;
         }
         
         .tagline {
             font-weight: 400;
-            font-size: 0.95rem;
-            color: #6b7280;
+            font-size: 1rem;
+            color: #64748b;
             letter-spacing: 0.01em;
+            margin-top: 2px;
         }
         
         .badge {
             display: inline-block;
-            padding: 4px 14px;
+            padding: 2px 12px;
             border-radius: 100px;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             font-weight: 600;
             letter-spacing: 0.03em;
             text-transform: uppercase;
-            background: #f3f0ff;
-            color: #6246ea;
-            border: 1px solid #e5deff;
+            background: #e8edf4;
+            color: #1a56db;
+            margin-left: 6px;
         }
         
-        /* Input Section */
-        .input-section {
-            background: #fafafa;
-            border-radius: 16px;
-            padding: 28px;
+        /* ===== FEATURES GRID ===== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
             margin-bottom: 28px;
-            border: 1px solid #f0f0f0;
+            background: #f8faff;
+            border-radius: 16px;
+            padding: 16px 20px;
+            border: 1px solid #e8edf4;
+        }
+        
+        .feature-item {
+            text-align: center;
+            padding: 6px 4px;
+        }
+        
+        .feature-item .label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #64748b;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .feature-item .value {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #0a1628;
+            margin-top: 2px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .feature-item .sub {
+            font-size: 0.6rem;
+            color: #94a3b8;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* ===== INPUT SECTION ===== */
+        .input-section {
+            background: #f8faff;
+            border-radius: 16px;
+            padding: 24px 28px;
+            margin-bottom: 28px;
+            border: 1px solid #e8edf4;
         }
         
         .input-group {
@@ -121,31 +136,31 @@
         .input-group input {
             flex: 1;
             padding: 14px 20px;
-            border: 2px solid #e5e5e5;
+            border: 2px solid #dce3ed;
             border-radius: 12px;
             font-size: 1rem;
             font-family: 'JetBrains Mono', monospace;
             transition: all 0.25s ease;
             background: white;
-            color: #0f0e17;
+            color: #0a1628;
             min-width: 200px;
         }
         
         .input-group input:focus {
             outline: none;
-            border-color: #6246ea;
-            box-shadow: 0 0 0 4px rgba(98, 70, 234, 0.08);
+            border-color: #1a56db;
+            box-shadow: 0 0 0 4px rgba(26, 86, 219, 0.08);
         }
         
         .input-group input::placeholder {
-            color: #b0b0b0;
+            color: #94a3b8;
             font-family: 'Inter', sans-serif;
         }
         
         .btn-primary {
-            padding: 14px 36px;
-            background: #0f0e17;
-            color: #fffffe;
+            padding: 14px 40px;
+            background: #1a56db;
+            color: #ffffff;
             border: none;
             border-radius: 12px;
             font-size: 1rem;
@@ -157,73 +172,60 @@
         }
         
         .btn-primary:hover {
-            background: #1a1926;
+            background: #1243b0;
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(15, 14, 23, 0.15);
+            box-shadow: 0 8px 24px rgba(26, 86, 219, 0.2);
         }
         
         .btn-primary:active {
             transform: translateY(0);
         }
         
-        .btn-success {
-            padding: 12px 28px;
-            background: #e53170;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
-        
-        .btn-success:hover {
-            background: #cc2a62;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(229, 49, 112, 0.25);
-        }
-        
-        /* Quick Links */
         .quick-links {
-            margin-top: 16px;
+            margin-top: 14px;
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .quick-links-label {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
         }
         
         .quick-link {
-            padding: 5px 16px;
+            padding: 4px 14px;
             background: white;
             border-radius: 100px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 500;
-            font-family: 'Inter', sans-serif;
+            font-family: 'JetBrains Mono', monospace;
             cursor: pointer;
             transition: all 0.2s ease;
-            border: 1.5px solid #e5e5e5;
-            color: #4a4a4a;
+            border: 1.5px solid #dce3ed;
+            color: #475569;
         }
         
         .quick-link:hover {
-            background: #f3f0ff;
-            border-color: #6246ea;
-            color: #6246ea;
+            background: #eff4ff;
+            border-color: #1a56db;
+            color: #1a56db;
         }
         
         .quick-link.troubleshoot {
-            background: #fff5f0;
-            border-color: #ff8906;
-            color: #d9730a;
+            background: #eff4ff;
+            border-color: #1a56db;
+            color: #1a56db;
         }
         
         .quick-link.troubleshoot:hover {
-            background: #ffedd5;
-            border-color: #ff8906;
+            background: #dce7ff;
         }
         
-        /* Results */
+        /* ===== RESULTS ===== */
         .results {
             display: none;
             animation: fadeIn 0.4s ease;
@@ -234,16 +236,16 @@
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(16px); }
+            from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
         .result-card {
-            background: #fafafa;
+            background: #f8faff;
             border-radius: 16px;
-            padding: 24px;
+            padding: 24px 28px;
             margin-bottom: 20px;
-            border: 1px solid #f0f0f0;
+            border: 1px solid #e8edf4;
         }
         
         .result-header {
@@ -258,145 +260,197 @@
         .result-header h3 {
             font-family: 'Inter', sans-serif;
             font-weight: 700;
-            font-size: 1.2rem;
-            color: #0f0e17;
+            font-size: 1.1rem;
+            color: #0a1628;
         }
         
         .result-header h3 span {
-            color: #6246ea;
+            color: #1a56db;
             font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .class-badge {
+            display: inline-block;
+            padding: 3px 14px;
+            border-radius: 100px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            background: #e8edf4;
+            color: #1a56db;
+            font-family: 'Inter', sans-serif;
         }
         
         .result-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
         }
         
         .result-item {
             background: white;
-            padding: 14px 18px;
-            border-radius: 12px;
-            border-left: 3px solid #e5e5e5;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid #e8edf4;
             transition: all 0.2s ease;
         }
         
         .result-item:hover {
-            border-left-color: #6246ea;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            border-color: #1a56db;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
         
         .result-item .label {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.04em;
-            color: #8b8b8b;
+            color: #94a3b8;
             font-family: 'Inter', sans-serif;
         }
         
         .result-item .value {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
-            color: #0f0e17;
-            margin-top: 4px;
+            color: #0a1628;
+            margin-top: 3px;
             font-family: 'JetBrains Mono', monospace;
         }
         
         .result-item .formula {
-            font-size: 0.7rem;
-            color: #b0b0b0;
-            margin-top: 4px;
+            font-size: 0.6rem;
+            color: #b0c0d0;
+            margin-top: 3px;
             font-style: italic;
             font-family: 'Inter', sans-serif;
         }
         
         .result-item.highlight {
-            border-left-color: #ff8906;
-            background: #fffaf5;
+            border-color: #1a56db;
+            background: #f0f6ff;
         }
         
         .result-item.highlight .value {
-            color: #d9730a;
+            color: #1a56db;
         }
         
-        .class-badge {
-            display: inline-block;
-            padding: 4px 16px;
-            border-radius: 100px;
-            font-size: 0.7rem;
+        /* ===== EXPLANATION ===== */
+        .explanation-section {
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .explanation-section .result-card {
+            background: #f8faff;
+            border: 1px solid #e8edf4;
+            border-left: 4px solid #1a56db;
+        }
+        
+        .explanation-section h3 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            color: #1a56db;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+        }
+        
+        .explanation-section h4,
+        .explanation-section h5 {
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 8px;
+            color: #0a1628;
+        }
+        
+        .explanation-section h5 {
             font-weight: 600;
-            background: #f3f0ff;
-            color: #6246ea;
-            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
         }
         
-        /* Loading */
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 40px;
-        }
-        
-        .loading.show {
-            display: block;
-        }
-        
-        .spinner {
-            width: 36px;
-            height: 36px;
-            border: 3px solid #f0f0f0;
-            border-top: 3px solid #6246ea;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 16px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .loading p {
-            color: #8b8b8b;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-        }
-        
-        /* Error */
-        .error {
-            background: #fee9e9;
-            color: #b91c1c;
-            padding: 16px 20px;
+        .explanation-box {
+            background: #ffffff;
+            padding: 18px 20px;
             border-radius: 12px;
-            margin-bottom: 20px;
-            display: none;
+            margin-bottom: 14px;
+            border: 1px solid #e8edf4;
+        }
+        
+        .explanation-box.blue {
+            background: #f0f6ff;
+            border-left: 4px solid #1a56db;
+        }
+        
+        .explanation-box.red {
+            background: #fef0f0;
+            border-left: 4px solid #dc2626;
+        }
+        
+        .explanation-box.green {
+            background: #f0faf5;
+            border-left: 4px solid #059669;
+        }
+        
+        .explanation-box.gray {
+            background: #f8fafc;
+            border-left: 4px solid #94a3b8;
+        }
+        
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f4f9;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #0a1628;
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+        
+        .answer-box {
+            background: #1a56db;
+            padding: 14px;
+            border-radius: 10px;
+            color: #ffffff;
+            font-weight: 700;
+            text-align: center;
+            font-size: 1rem;
             font-family: 'Inter', sans-serif;
-            border-left: 3px solid #b91c1c;
+            margin-top: 12px;
         }
         
-        .error.show {
-            display: block;
+        .key-takeaway {
+            background: #f1f4f9;
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-top: 14px;
+            font-size: 0.85rem;
+            color: #475569;
+            font-family: 'Inter', sans-serif;
+            border-left: 3px solid #1a56db;
         }
         
-        /* Batch */
+        .key-takeaway strong {
+            color: #0a1628;
+        }
+        
+        /* ===== BATCH ===== */
         .batch-section {
             margin-top: 20px;
             padding-top: 24px;
-            border-top: 2px solid #f0f0f0;
+            border-top: 2px solid #e8edf4;
         }
         
         .batch-section h4 {
             font-family: 'Inter', sans-serif;
             font-weight: 700;
-            color: #0f0e17;
-            margin-bottom: 8px;
-            font-size: 1rem;
+            color: #0a1628;
+            margin-bottom: 4px;
+            font-size: 0.95rem;
         }
         
-        .batch-section p {
-            color: #8b8b8b;
-            font-size: 0.9rem;
+        .batch-section .sub {
+            color: #94a3b8;
+            font-size: 0.8rem;
             margin-bottom: 12px;
             font-family: 'Inter', sans-serif;
         }
@@ -404,21 +458,41 @@
         textarea {
             width: 100%;
             padding: 14px;
-            border: 2px solid #e5e5e5;
+            border: 2px solid #dce3ed;
             border-radius: 12px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            min-height: 80px;
+            font-size: 0.85rem;
+            min-height: 72px;
             resize: vertical;
             background: white;
-            color: #0f0e17;
+            color: #0a1628;
             transition: border-color 0.25s ease;
         }
         
         textarea:focus {
             outline: none;
-            border-color: #6246ea;
-            box-shadow: 0 0 0 4px rgba(98, 70, 234, 0.06);
+            border-color: #1a56db;
+            box-shadow: 0 0 0 4px rgba(26, 86, 219, 0.06);
+        }
+        
+        .btn-success {
+            padding: 10px 28px;
+            background: #059669;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            margin-top: 12px;
+        }
+        
+        .btn-success:hover {
+            background: #047857;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(5, 150, 105, 0.2);
         }
         
         .batch-results {
@@ -431,144 +505,167 @@
         }
         
         .batch-item {
-            background: #fafafa;
-            padding: 14px 18px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            border-left: 3px solid #e5e5e5;
-            border: 1px solid #f0f0f0;
+            background: #f8faff;
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            border: 1px solid #e8edf4;
         }
         
         .batch-item .ip-label {
             font-weight: 600;
             font-family: 'JetBrains Mono', monospace;
-            color: #0f0e17;
-            font-size: 0.9rem;
+            color: #0a1628;
+            font-size: 0.85rem;
         }
         
         .batch-item .details {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 8px;
-            margin-top: 8px;
-            font-size: 0.85rem;
-            color: #4a4a4a;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 6px;
+            margin-top: 6px;
+            font-size: 0.8rem;
+            color: #475569;
             font-family: 'Inter', sans-serif;
         }
         
         .batch-item .details strong {
-            color: #0f0e17;
+            color: #0a1628;
             font-weight: 600;
         }
         
-        /* Explanation Section */
-        .explanation-section {
-            margin-top: 20px;
-            animation: fadeIn 0.5s ease;
+        /* ===== LOADING ===== */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 32px;
         }
         
-        .explanation-section .result-card {
-            background: #fefcf5;
-            border: 1px solid #f0e8d8;
-            border-left: 4px solid #ff8906;
+        .loading.show {
+            display: block;
         }
         
-        .explanation-section h3 {
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid #e8edf4;
+            border-top: 3px solid #1a56db;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 12px;
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .loading p {
+            color: #94a3b8;
             font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            color: #d9730a;
+            font-size: 0.9rem;
+        }
+        
+        /* ===== ERROR ===== */
+        .error {
+            background: #fef0f0;
+            color: #b91c1c;
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            display: none;
+            font-family: 'Inter', sans-serif;
+            border-left: 3px solid #b91c1c;
+        }
+        
+        .error.show {
+            display: block;
+        }
+        
+        /* ===== FOOTER ===== */
+        .footer {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 2px solid #e8edf4;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .footer-left {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+        }
+        
+        .footer-left .item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1.1rem;
-        }
-        
-        .explanation-section h4, .explanation-section h5 {
+            gap: 6px;
+            font-size: 0.8rem;
+            color: #475569;
             font-family: 'Inter', sans-serif;
-            margin-bottom: 8px;
-            color: #0f0e17;
         }
         
-        .explanation-section h5 {
+        .footer-left .item strong {
+            color: #0a1628;
+        }
+        
+        .footer-left .item a {
+            color: #1a56db;
+            text-decoration: none;
             font-weight: 600;
-            font-size: 0.95rem;
         }
         
-        .explanation-section .badge {
-            background: #ffedd5;
-            color: #d9730a;
-            font-size: 0.6rem;
+        .footer-left .item a:hover {
+            text-decoration: underline;
         }
         
-        .explanation-box {
-            background: #f7f5f0;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 15px;
+        .footer-right {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
         }
         
-        .explanation-box.blue {
-            background: #f5f3ff;
-            border-left: 4px solid #6246ea;
-        }
-        
-        .explanation-box.red {
-            background: #fef0f0;
-            border-left: 4px solid #e53170;
-        }
-        
-        .explanation-box.green {
-            background: #f0faf5;
-            border-left: 4px solid #2d9b6e;
-        }
-        
-        .explanation-box.gray {
-            background: #f5f5f5;
-            border-left: 4px solid #8b8b8b;
-        }
-        
-        .mono {
-            font-family: 'JetBrains Mono', monospace;
-            background: #e8e8e8;
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: #0f0e17;
-            margin: 8px 0;
-            line-height: 1.6;
-        }
-        
-        .answer-box {
-            background: #0f0e17;
-            padding: 14px;
-            border-radius: 10px;
-            color: #fffffe;
-            font-weight: 700;
-            text-align: center;
-            font-size: 1.1rem;
+        .footer-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 100px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            background: #e8edf4;
+            color: #475569;
             font-family: 'Inter', sans-serif;
-            margin-top: 12px;
         }
         
-        .key-takeaway {
-            background: #f5f5f5;
-            padding: 16px 20px;
-            border-radius: 12px;
-            margin-top: 16px;
-            font-size: 0.9rem;
-            color: #4a4a4a;
-            font-family: 'Inter', sans-serif;
-            border-left: 3px solid #6246ea;
+        .footer-badge.blue {
+            background: #1a56db;
+            color: white;
         }
         
-        .key-takeaway strong {
-            color: #0f0e17;
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .result-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
         
-        /* Responsive */
         @media (max-width: 640px) {
             .container {
-                padding: 24px 20px;
+                padding: 20px 16px;
+                border-radius: 16px;
             }
             
             .logo {
@@ -584,11 +681,22 @@
                 justify-content: center;
             }
             
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+                padding: 12px;
+            }
+            
             .result-grid {
                 grid-template-columns: 1fr;
             }
             
             .result-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .footer {
                 flex-direction: column;
                 align-items: flex-start;
             }
@@ -599,14 +707,17 @@
             
             .quick-link {
                 font-size: 0.7rem;
-                padding: 4px 12px;
+                padding: 3px 10px;
+            }
+            
+            .batch-item .details {
+                grid-template-columns: 1fr 1fr;
             }
         }
         
         @media (max-width: 480px) {
             .container {
-                padding: 16px;
-                border-radius: 16px;
+                padding: 14px 12px;
             }
             
             .input-section {
@@ -616,26 +727,53 @@
             .result-card {
                 padding: 16px;
             }
+            
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         
-        <!-- Header -->
+        <!-- ===== HEADER ===== -->
         <div class="header">
-            <div class="header-left">
-                <div class="logo">
-                    <span>subnet</span><span class="accent">pro</span>
-                </div>
-                <div class="tagline">
-                    IPv4 calculator — instant answers for 7 key questions
-                    <span class="badge" style="margin-left: 10px;">v1.0</span>
-                </div>
+            <div class="logo">
+                subnet <span>pro</span>
+            </div>
+            <div class="tagline">
+                IPv4 calculator — instant answers for 7 key questions
+                <span class="badge">v1.0</span>
             </div>
         </div>
         
-        <!-- Input -->
+        <!-- ===== FEATURES GRID ===== -->
+        <div class="features-grid" id="featuresGrid">
+            <div class="feature-item">
+                <div class="label">Network Address</div>
+                <div class="value" id="fNetwork">—</div>
+                <div class="sub">network address</div>
+            </div>
+            <div class="feature-item">
+                <div class="label">Broadcast Address</div>
+                <div class="value" id="fBroadcast">—</div>
+                <div class="sub">broadcast address</div>
+            </div>
+            <div class="feature-item">
+                <div class="label">Subnet Mask</div>
+                <div class="value" id="fMask">—</div>
+                <div class="sub">subnet mask</div>
+            </div>
+            <div class="feature-item">
+                <div class="label">Usable IPs</div>
+                <div class="value" id="fUsable">—</div>
+                <div class="sub">first — last</div>
+            </div>
+        </div>
+        
+        <!-- ===== INPUT ===== -->
         <div class="input-section">
             <div class="input-group">
                 <input type="text" id="ipInput" placeholder="192.168.34.221/27" value="192.168.34.221/27">
@@ -643,30 +781,31 @@
             </div>
             
             <div class="quick-links">
-                <span style="color:#8b8b8b;font-size:0.8rem;margin-right:4px;font-family:'Inter',sans-serif;">examples:</span>
+                <span class="quick-links-label">examples:</span>
                 <span class="quick-link" onclick="quickExample('192.168.34.221/27')">192.168.34.221/27</span>
                 <span class="quick-link" onclick="quickExample('172.16.113.1/18')">172.16.113.1/18</span>
                 <span class="quick-link" onclick="quickExample('10.20.60.234/11')">10.20.60.234/11</span>
                 <span class="quick-link" onclick="quickExample('172.20.0.0/28')">172.20.0.0/28</span>
-                <span class="quick-link troubleshoot" onclick="quickExample('192.168.50.10/24')">gateway troubleshoot</span>
+                <span class="quick-link troubleshoot" onclick="quickExample('192.168.50.10/24')">gateway troubleshooting</span>
             </div>
         </div>
         
-        <!-- Loading -->
+        <!-- ===== LOADING ===== -->
         <div class="loading" id="loading">
             <div class="spinner"></div>
             <p>calculating...</p>
         </div>
         
-        <!-- Error -->
+        <!-- ===== ERROR ===== -->
         <div class="error" id="error"></div>
         
-        <!-- Results -->
+        <!-- ===== RESULTS ===== -->
         <div class="results" id="results">
             
+            <!-- Main Results -->
             <div class="result-card">
                 <div class="result-header">
-                    <h3>results for <span id="displayIP"></span></h3>
+                    <h3>Results for <span id="displayIP"></span></h3>
                     <span class="class-badge" id="displayClass"></span>
                 </div>
                 <div class="result-grid" id="resultGrid"></div>
@@ -680,15 +819,37 @@
                 </div>
             </div>
             
-            <!-- Batch -->
+            <!-- ===== BATCH ===== -->
             <div class="batch-section">
-                <h4>batch calculator</h4>
-                <p>one IP per line — get results for multiple addresses at once</p>
+                <h4>Batch Calculator</h4>
+                <div class="sub">One IP per line — get results for multiple addresses at once</div>
                 <textarea id="batchInput" placeholder="192.168.34.221/27&#10;172.16.113.1/18&#10;10.20.60.234/11"></textarea>
-                <button class="btn-success" onclick="batchCalculate()" style="margin-top:12px;">calculate all</button>
+                <button class="btn-success" onclick="batchCalculate()">Calculate All</button>
                 <div class="batch-results" id="batchResults"></div>
             </div>
         </div>
+        
+        <!-- ===== FOOTER ===== -->
+        <div class="footer">
+            <div class="footer-left">
+                <span class="item"><strong>Try it now</strong></span>
+                <span class="item"><a href="https://jeffSubnet.pythonanywhere.com" target="_blank">jeffSubnet.pythonanywhere.com</a></span>
+                <span class="item"><a href="https://github.com/NyangoyaG/subnet-calculator" target="_blank">GitHub</a></span>
+                <span class="item"><a href="https://www.linkedin.com/in/geofrey-nyangoya/" target="_blank">LinkedIn</a></span>
+            </div>
+            <div class="footer-right">
+                <span class="footer-badge">100% FREE</span>
+                <span class="footer-badge">INSTANT RESULTS</span>
+                <span class="footer-badge blue">WORKS EVERYWHERE</span>
+            </div>
+        </div>
+        
+        <!-- Performance note -->
+        <div style="margin-top: 16px; text-align: center; font-size: 0.7rem; color: #94a3b8; font-family: 'Inter', sans-serif; border-top: 1px solid #e8edf4; padding-top: 16px;">
+            ⚡ First load may take a moment — free hosting warming up. Clear cache & reload if needed.
+            <span style="font-style: italic; color: #1a56db;">testing your patience too 😄</span>
+        </div>
+        
     </div>
     
     <script>
@@ -730,6 +891,12 @@
             document.getElementById('displayIP').textContent = `${data.ip}/${data.prefix}`;
             document.getElementById('displayClass').textContent = `Class ${data.class_info || 'Unknown'}`;
             
+            // Update features grid
+            document.getElementById('fNetwork').textContent = data.network_address;
+            document.getElementById('fBroadcast').textContent = data.broadcast_address;
+            document.getElementById('fMask').textContent = data.subnet_mask;
+            document.getElementById('fUsable').textContent = `${data.first_usable} — ${data.last_usable}`;
+            
             const grid = document.getElementById('resultGrid');
             
             const results = [
@@ -763,7 +930,7 @@
                 content.innerHTML = `
                     <div class="explanation-box">
                         <h4>troubleshooting: default gateway misconfiguration</h4>
-                        <p style="color:#4a4a4a;line-height:1.7;margin-bottom:12px;font-family:'Inter',sans-serif;">
+                        <p style="color:#475569;line-height:1.7;margin-bottom:12px;font-family:'Inter',sans-serif;">
                             <strong>scenario</strong> — a PC is configured with:
                         </p>
                         <div class="mono">
@@ -771,13 +938,13 @@
                             Mask: 255.255.255.0 (/24)<br>
                             Gateway: 192.168.60.1
                         </div>
-                        <p style="color:#4a4a4a;line-height:1.7;margin-top:12px;font-family:'Inter',sans-serif;">
+                        <p style="color:#475569;line-height:1.7;margin-top:12px;font-family:'Inter',sans-serif;">
                             <strong>problem</strong> — the PC can communicate locally but not remotely.
                         </p>
-                        <p style="color:#4a4a4a;line-height:1.7;margin-top:8px;font-family:'Inter',sans-serif;">
+                        <p style="color:#475569;line-height:1.7;margin-top:8px;font-family:'Inter',sans-serif;">
                             <strong>question</strong> — what is wrong?
                         </p>
-                        <div class="mono" style="background:#e8e8e8;margin-top:8px;">
+                        <div class="mono" style="background:#e8edf4;margin-top:8px;">
                             A. IP address<br>
                             B. Subnet mask<br>
                             C. Default gateway<br>
@@ -788,14 +955,14 @@
                     <div class="explanation-box blue">
                         <h5>step-by-step solution</h5>
                         
-                        <p style="font-weight:600;color:#0f0e17;font-family:'Inter',sans-serif;margin-top:12px;">1. find the block size</p>
+                        <p style="font-weight:600;color:#0a1628;font-family:'Inter',sans-serif;margin-top:12px;">1. find the block size</p>
                         <div class="mono">
                             NetMask (NM) = /24<br>
                             Next Boundary (NB) = 24<br>
                             24 − 24 = 0 &nbsp;→&nbsp; 2^0 = <strong>1</strong>
                         </div>
                         
-                        <p style="font-weight:600;color:#0f0e17;font-family:'Inter',sans-serif;margin-top:16px;">2. find the PC's subnet</p>
+                        <p style="font-weight:600;color:#0a1628;font-family:'Inter',sans-serif;margin-top:16px;">2. find the PC's subnet</p>
                         <div class="mono">
                             ...<br>
                             192.168.49.0<br>
@@ -803,11 +970,11 @@
                             192.168.51.0<br>
                             ...
                         </div>
-                        <p style="font-family:'Inter',sans-serif;color:#4a4a4a;margin-top:6px;">
+                        <p style="font-family:'Inter',sans-serif;color:#475569;margin-top:6px;">
                             PC belongs to: <strong>192.168.50.0/24</strong>
                         </p>
                         
-                        <p style="font-weight:600;color:#0f0e17;font-family:'Inter',sans-serif;margin-top:16px;">3. find the gateway's subnet</p>
+                        <p style="font-weight:600;color:#0a1628;font-family:'Inter',sans-serif;margin-top:16px;">3. find the gateway's subnet</p>
                         <div class="mono">
                             ...<br>
                             192.168.59.0<br>
@@ -815,25 +982,25 @@
                             192.168.61.0<br>
                             ...
                         </div>
-                        <p style="font-family:'Inter',sans-serif;color:#4a4a4a;margin-top:6px;">
+                        <p style="font-family:'Inter',sans-serif;color:#475569;margin-top:6px;">
                             Gateway belongs to: <strong>192.168.60.0/24</strong>
                         </p>
                     </div>
                     
                     <div class="explanation-box red">
                         <h5>the problem</h5>
-                        <p style="font-family:'Inter',sans-serif;color:#4a4a4a;line-height:1.7;">
+                        <p style="font-family:'Inter',sans-serif;color:#475569;line-height:1.7;">
                             The PC is on <strong>192.168.50.0/24</strong> and the gateway is on <strong>192.168.60.0/24</strong>.<br>
                             They are on <strong>different subnets</strong>.
                         </p>
-                        <p style="font-family:'Inter',sans-serif;color:#4a4a4a;line-height:1.7;margin-top:10px;">
+                        <p style="font-family:'Inter',sans-serif;color:#475569;line-height:1.7;margin-top:10px;">
                             A default gateway <strong>must</strong> be on the same local subnet as the PC.
                         </p>
                     </div>
                     
                     <div class="explanation-box green">
                         <h5>the solution</h5>
-                        <p style="font-family:'Inter',sans-serif;color:#4a4a4a;line-height:1.7;">
+                        <p style="font-family:'Inter',sans-serif;color:#475569;line-height:1.7;">
                             Change the gateway to an IP on the same subnet:
                         </p>
                         <div class="mono" style="background:#e0ece6;">
@@ -884,10 +1051,10 @@
                 const batchResults = document.getElementById('batchResults');
                 
                 if (data.results) {
-                    let html = '<h4 style="margin-top:12px;font-family:Inter,sans-serif;font-weight:700;color:#0f0e17;font-size:1rem;">batch results</h4>';
+                    let html = '';
                     data.results.forEach(r => {
                         if (r.error) {
-                            html += `<div class="batch-item" style="border-left-color:#e53170;background:#fef0f0;"><div class="ip-label">${r.ip}</div><div style="color:#b91c1c;">${r.error}</div></div>`;
+                            html += `<div class="batch-item" style="border-left:3px solid #dc2626;background:#fef0f0;"><div class="ip-label">${r.ip}</div><div style="color:#b91c1c;">${r.error}</div></div>`;
                         } else {
                             html += `
                                 <div class="batch-item">
@@ -896,7 +1063,7 @@
                                         <span>network: <strong>${r.network}</strong></span>
                                         <span>broadcast: <strong>${r.broadcast}</strong></span>
                                         <span>hosts: <strong>${r.usable_hosts}</strong></span>
-                                        <span>usable: <strong>${r.first_usable} – ${r.last_usable}</strong></span>
+                                        <span>usable: <strong>${r.first_usable} — ${r.last_usable}</strong></span>
                                     </div>
                                 </div>
                             `;
@@ -911,7 +1078,20 @@
         }
         
         function showLoading(show) {
-            document.getElementById('loading').classList.toggle('show', show);
+            const loading = document.getElementById('loading');
+            const message = loading.querySelector('p');
+            if (show) {
+                loading.classList.add('show');
+                message.textContent = 'calculating... ⏳';
+                setTimeout(() => {
+                    message.textContent = 'still working... testing your patience too 😄';
+                }, 5000);
+                setTimeout(() => {
+                    message.textContent = 'almost there! clear cache & reload if stuck 🔄';
+                }, 10000);
+            } else {
+                loading.classList.remove('show');
+            }
         }
         
         function showError(message) {
