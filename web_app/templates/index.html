@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Powered Subnet Calculator</title>
+    <title>Subnet Pro - IPv4 Calculator</title>
+    
+    <!-- Google Fonts for unique typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -12,216 +16,322 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f0e17;
             min-height: 100vh;
             padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .container {
-            max-width: 900px;
+            max-width: 960px;
+            width: 100%;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            background: #fffffe;
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 0 25px 80px rgba(15, 14, 23, 0.4);
+            position: relative;
+            overflow: hidden;
         }
         
-        h1 {
-            color: #2d3748;
-            font-size: 2.5em;
-            margin-bottom: 10px;
+        /* Decorative accent line */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff8906, #e53170, #6246ea);
+        }
+        
+        /* Header */
+        .header {
+            margin-bottom: 32px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .logo {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            letter-spacing: -0.03em;
+            color: #0f0e17;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         
-        .subtitle {
-            color: #718096;
-            margin-bottom: 30px;
-            font-size: 1.1em;
+        .logo span {
+            color: #6246ea;
         }
         
+        .logo .accent {
+            color: #ff8906;
+        }
+        
+        .tagline {
+            font-weight: 400;
+            font-size: 0.95rem;
+            color: #6b7280;
+            letter-spacing: 0.01em;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            background: #f3f0ff;
+            color: #6246ea;
+            border: 1px solid #e5deff;
+        }
+        
+        /* Input Section */
         .input-section {
-            background: #f7fafc;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
+            background: #fafafa;
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 28px;
+            border: 1px solid #f0f0f0;
         }
         
         .input-group {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
         }
         
         .input-group input {
             flex: 1;
-            padding: 12px 20px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 1.1em;
-            transition: all 0.3s;
+            padding: 14px 20px;
+            border: 2px solid #e5e5e5;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.25s ease;
+            background: white;
+            color: #0f0e17;
             min-width: 200px;
         }
         
         .input-group input:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #6246ea;
+            box-shadow: 0 0 0 4px rgba(98, 70, 234, 0.08);
         }
         
-        .input-group button {
-            padding: 12px 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+        .input-group input::placeholder {
+            color: #b0b0b0;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .btn-primary {
+            padding: 14px 36px;
+            background: #0f0e17;
+            color: #fffffe;
             border: none;
-            border-radius: 10px;
-            font-size: 1.1em;
+            border-radius: 12px;
+            font-size: 1rem;
             font-weight: 600;
+            font-family: 'Inter', sans-serif;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.25s ease;
+            letter-spacing: 0.01em;
         }
         
-        .input-group button:hover {
+        .btn-primary:hover {
+            background: #1a1926;
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 8px 24px rgba(15, 14, 23, 0.15);
         }
         
-        .input-group button:active {
+        .btn-primary:active {
             transform: translateY(0);
         }
         
+        .btn-success {
+            padding: 12px 28px;
+            background: #e53170;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        
+        .btn-success:hover {
+            background: #cc2a62;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(229, 49, 112, 0.25);
+        }
+        
+        /* Quick Links */
         .quick-links {
-            margin-top: 15px;
+            margin-top: 16px;
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }
         
         .quick-link {
-            padding: 6px 15px;
-            background: #edf2f7;
-            border-radius: 20px;
-            font-size: 0.9em;
+            padding: 5px 16px;
+            background: white;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
             cursor: pointer;
-            transition: all 0.2s;
-            border: 1px solid transparent;
+            transition: all 0.2s ease;
+            border: 1.5px solid #e5e5e5;
+            color: #4a4a4a;
         }
         
         .quick-link:hover {
-            background: #e2e8f0;
-            border-color: #667eea;
+            background: #f3f0ff;
+            border-color: #6246ea;
+            color: #6246ea;
         }
         
+        .quick-link.troubleshoot {
+            background: #fff5f0;
+            border-color: #ff8906;
+            color: #d9730a;
+        }
+        
+        .quick-link.troubleshoot:hover {
+            background: #ffedd5;
+            border-color: #ff8906;
+        }
+        
+        /* Results */
         .results {
             display: none;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            animation: fadeIn 0.4s ease;
         }
         
         .results.show {
             display: block;
         }
         
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         .result-card {
-            background: #f7fafc;
-            border-radius: 15px;
-            padding: 20px;
+            background: #fafafa;
+            border-radius: 16px;
+            padding: 24px;
             margin-bottom: 20px;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        
+        .result-header h3 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #0f0e17;
+        }
+        
+        .result-header h3 span {
+            color: #6246ea;
+            font-family: 'JetBrains Mono', monospace;
         }
         
         .result-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
         }
         
         .result-item {
             background: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border-left: 4px solid #667eea;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border-left: 3px solid #e5e5e5;
+            transition: all 0.2s ease;
+        }
+        
+        .result-item:hover {
+            border-left-color: #6246ea;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
         }
         
         .result-item .label {
-            font-size: 0.85em;
-            color: #718096;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.04em;
+            color: #8b8b8b;
+            font-family: 'Inter', sans-serif;
         }
         
         .result-item .value {
-            font-size: 1.2em;
-            font-weight: 700;
-            color: #2d3748;
-            margin-top: 5px;
-            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0f0e17;
+            margin-top: 4px;
+            font-family: 'JetBrains Mono', monospace;
         }
         
         .result-item .formula {
-            font-size: 0.85em;
-            color: #a0aec0;
-            margin-top: 5px;
+            font-size: 0.7rem;
+            color: #b0b0b0;
+            margin-top: 4px;
             font-style: italic;
+            font-family: 'Inter', sans-serif;
         }
         
         .result-item.highlight {
-            border-left-color: #48bb78;
-            background: #f0fff4;
+            border-left-color: #ff8906;
+            background: #fffaf5;
         }
         
         .result-item.highlight .value {
-            color: #48bb78;
+            color: #d9730a;
         }
         
-        .ai-explanation {
-            background: linear-gradient(135deg, #ebf8ff 0%, #e0edff 100%);
-            border-radius: 10px;
-            padding: 15px 20px;
-            margin-top: 10px;
-            border-left: 4px solid #4299e1;
-        }
-        
-        .ai-explanation .label {
-            font-weight: 600;
-            color: #2b6cb0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .ai-explanation .text {
-            color: #2d3748;
-            margin-top: 5px;
-            line-height: 1.6;
-        }
-        
-        .badge {
+        .class-badge {
             display: inline-block;
-            padding: 3px 12px;
-            border-radius: 12px;
-            font-size: 0.75em;
+            padding: 4px 16px;
+            border-radius: 100px;
+            font-size: 0.7rem;
             font-weight: 600;
-            text-transform: uppercase;
+            background: #f3f0ff;
+            color: #6246ea;
+            font-family: 'Inter', sans-serif;
         }
         
-        .badge-ai {
-            background: #4299e1;
-            color: white;
-        }
-        
-        .badge-class {
-            background: #edf2f7;
-            color: #2d3748;
-        }
-        
+        /* Loading */
         .loading {
             display: none;
             text-align: center;
@@ -233,13 +343,13 @@
         }
         
         .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
+            width: 36px;
+            height: 36px;
+            border: 3px solid #f0f0f0;
+            border-top: 3px solid #6246ea;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 16px;
         }
         
         @keyframes spin {
@@ -247,98 +357,305 @@
             100% { transform: rotate(360deg); }
         }
         
+        .loading p {
+            color: #8b8b8b;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+        }
+        
+        /* Error */
         .error {
-            background: #fed7d7;
-            color: #c53030;
-            padding: 15px;
-            border-radius: 10px;
+            background: #fee9e9;
+            color: #b91c1c;
+            padding: 16px 20px;
+            border-radius: 12px;
             margin-bottom: 20px;
             display: none;
+            font-family: 'Inter', sans-serif;
+            border-left: 3px solid #b91c1c;
         }
         
         .error.show {
             display: block;
         }
         
+        /* Batch */
         .batch-section {
             margin-top: 20px;
-            padding-top: 20px;
-            border-top: 2px solid #e2e8f0;
+            padding-top: 24px;
+            border-top: 2px solid #f0f0f0;
+        }
+        
+        .batch-section h4 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            color: #0f0e17;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        
+        .batch-section p {
+            color: #8b8b8b;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            font-family: 'Inter', sans-serif;
         }
         
         textarea {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.95em;
-            min-height: 100px;
+            padding: 14px;
+            border: 2px solid #e5e5e5;
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            min-height: 80px;
             resize: vertical;
+            background: white;
+            color: #0f0e17;
+            transition: border-color 0.25s ease;
         }
         
         textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #6246ea;
+            box-shadow: 0 0 0 4px rgba(98, 70, 234, 0.06);
         }
         
         .batch-results {
             display: none;
-            margin-top: 15px;
+            margin-top: 16px;
         }
         
         .batch-results.show {
             display: block;
         }
         
+        .batch-item {
+            background: #fafafa;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border-left: 3px solid #e5e5e5;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .batch-item .ip-label {
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            color: #0f0e17;
+            font-size: 0.9rem;
+        }
+        
+        .batch-item .details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 8px;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: #4a4a4a;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .batch-item .details strong {
+            color: #0f0e17;
+            font-weight: 600;
+        }
+        
+        /* Explanation Section */
+        .explanation-section {
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .explanation-section .result-card {
+            background: #fefcf5;
+            border: 1px solid #f0e8d8;
+            border-left: 4px solid #ff8906;
+        }
+        
+        .explanation-section h3 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            color: #d9730a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .explanation-section h4, .explanation-section h5 {
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 8px;
+            color: #0f0e17;
+        }
+        
+        .explanation-section h5 {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .explanation-section .badge {
+            background: #ffedd5;
+            color: #d9730a;
+            font-size: 0.6rem;
+        }
+        
+        .explanation-box {
+            background: #f7f5f0;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .explanation-box.blue {
+            background: #f5f3ff;
+            border-left: 4px solid #6246ea;
+        }
+        
+        .explanation-box.red {
+            background: #fef0f0;
+            border-left: 4px solid #e53170;
+        }
+        
+        .explanation-box.green {
+            background: #f0faf5;
+            border-left: 4px solid #2d9b6e;
+        }
+        
+        .explanation-box.gray {
+            background: #f5f5f5;
+            border-left: 4px solid #8b8b8b;
+        }
+        
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+            background: #e8e8e8;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #0f0e17;
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+        
+        .answer-box {
+            background: #0f0e17;
+            padding: 14px;
+            border-radius: 10px;
+            color: #fffffe;
+            font-weight: 700;
+            text-align: center;
+            font-size: 1.1rem;
+            font-family: 'Inter', sans-serif;
+            margin-top: 12px;
+        }
+        
+        .key-takeaway {
+            background: #f5f5f5;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: #4a4a4a;
+            font-family: 'Inter', sans-serif;
+            border-left: 3px solid #6246ea;
+        }
+        
+        .key-takeaway strong {
+            color: #0f0e17;
+        }
+        
+        /* Responsive */
         @media (max-width: 640px) {
             .container {
-                padding: 20px;
+                padding: 24px 20px;
             }
             
-            h1 {
-                font-size: 1.8em;
+            .logo {
+                font-size: 1.6rem;
             }
             
             .input-group input {
                 min-width: 100%;
             }
             
+            .btn-primary {
+                width: 100%;
+                justify-content: center;
+            }
+            
             .result-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .result-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .quick-links {
+                gap: 6px;
+            }
+            
+            .quick-link {
+                font-size: 0.7rem;
+                padding: 4px 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 16px;
+                border-radius: 16px;
+            }
+            
+            .input-section {
+                padding: 16px;
+            }
+            
+            .result-card {
+                padding: 16px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>
-            🌐 Subnet Calculator
-            <span class="badge badge-ai">AI-Powered</span>
-        </h1>
-        <p class="subtitle">Based on: Understanding the basics of IPv4 addressing</p>
         
-        <!-- Input Section -->
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <div class="logo">
+                    <span>subnet</span><span class="accent">pro</span>
+                </div>
+                <div class="tagline">
+                    IPv4 calculator — instant answers for 7 key questions
+                    <span class="badge" style="margin-left: 10px;">v1.0</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Input -->
         <div class="input-section">
             <div class="input-group">
-                <input type="text" id="ipInput" placeholder="Enter IP or CIDR (e.g., 192.168.34.221/27)" value="192.168.34.221/27">
-                <button onclick="calculate()">Calculate 🔍</button>
+                <input type="text" id="ipInput" placeholder="192.168.34.221/27" value="192.168.34.221/27">
+                <button class="btn-primary" onclick="calculate()">Calculate</button>
             </div>
             
             <div class="quick-links">
-                <span style="color:#718096;font-size:0.9em;margin-right:5px;">Quick examples:</span>
+                <span style="color:#8b8b8b;font-size:0.8rem;margin-right:4px;font-family:'Inter',sans-serif;">examples:</span>
                 <span class="quick-link" onclick="quickExample('192.168.34.221/27')">192.168.34.221/27</span>
                 <span class="quick-link" onclick="quickExample('172.16.113.1/18')">172.16.113.1/18</span>
                 <span class="quick-link" onclick="quickExample('10.20.60.234/11')">10.20.60.234/11</span>
                 <span class="quick-link" onclick="quickExample('172.20.0.0/28')">172.20.0.0/28</span>
-                <span class="quick-link" onclick="quickExample('192.168.50.10/24')">Gateway Troubleshoot</span>
+                <span class="quick-link troubleshoot" onclick="quickExample('192.168.50.10/24')">gateway troubleshoot</span>
             </div>
         </div>
         
         <!-- Loading -->
         <div class="loading" id="loading">
             <div class="spinner"></div>
-            <p style="margin-top:15px;color:#718096;">Calculating subnet information...</p>
+            <p>calculating...</p>
         </div>
         
         <!-- Error -->
@@ -346,35 +663,29 @@
         
         <!-- Results -->
         <div class="results" id="results">
+            
             <div class="result-card">
-                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:15px;">
-                    <h3 style="color:#2d3748;">📊 Results for <span id="displayIP" style="color:#667eea;"></span></h3>
-                    <div>
-                        <span class="badge badge-class" id="displayClass"></span>
-                    </div>
+                <div class="result-header">
+                    <h3>results for <span id="displayIP"></span></h3>
+                    <span class="class-badge" id="displayClass"></span>
                 </div>
-                
-                <div class="result-grid" id="resultGrid">
-                    <!-- Results will be inserted here -->
+                <div class="result-grid" id="resultGrid"></div>
+            </div>
+            
+            <!-- Explanation -->
+            <div class="explanation-section" id="explanationSection" style="display:none;">
+                <div class="result-card">
+                    <h3>📖 explanation</h3>
+                    <div id="explanationContent"></div>
                 </div>
             </div>
             
-            <!-- AI Explanation -->
-            <div class="result-card" id="aiSection" style="display:none;">
-                <div class="ai-explanation">
-                    <div class="label">🤖 AI-Powered Explanation</div>
-                    <div class="text" id="aiText"></div>
-                </div>
-            </div>
-            
-            <!-- Batch Section -->
+            <!-- Batch -->
             <div class="batch-section">
-                <h4 style="color:#2d3748;margin-bottom:10px;">📦 Batch Calculator</h4>
-                <p style="color:#718096;font-size:0.9em;margin-bottom:10px;">Enter one IP per line:</p>
+                <h4>batch calculator</h4>
+                <p>one IP per line — get results for multiple addresses at once</p>
                 <textarea id="batchInput" placeholder="192.168.34.221/27&#10;172.16.113.1/18&#10;10.20.60.234/11"></textarea>
-                <button onclick="batchCalculate()" style="margin-top:10px;padding:10px 25px;background:#48bb78;color:white;border:none;border-radius:10px;font-weight:600;cursor:pointer;transition:all 0.2s;">
-                    Calculate All 🚀
-                </button>
+                <button class="btn-success" onclick="batchCalculate()" style="margin-top:12px;">calculate all</button>
                 <div class="batch-results" id="batchResults"></div>
             </div>
         </div>
@@ -422,14 +733,14 @@
             const grid = document.getElementById('resultGrid');
             
             const results = [
-                { label: 'Network Address', value: data.network_address, formula: 'All host bits = 0' },
-                { label: 'Broadcast Address', value: data.broadcast_address, formula: 'All host bits = 1' },
-                { label: 'Subnet Mask', value: data.subnet_mask, formula: 'Dotted decimal' },
-                { label: 'Wildcard Mask', value: data.wildcard_mask, formula: 'Inverse of subnet mask' },
-                { label: 'First Usable IP', value: data.first_usable, formula: 'Network + 1', highlight: true },
-                { label: 'Last Usable IP', value: data.last_usable, formula: 'Broadcast - 1', highlight: true },
+                { label: 'Network Address', value: data.network_address, formula: 'all host bits = 0' },
+                { label: 'Broadcast Address', value: data.broadcast_address, formula: 'all host bits = 1' },
+                { label: 'Subnet Mask', value: data.subnet_mask, formula: 'dotted decimal' },
+                { label: 'Wildcard Mask', value: data.wildcard_mask, formula: 'inverse of subnet mask' },
+                { label: 'First Usable IP', value: data.first_usable, formula: 'network + 1', highlight: true },
+                { label: 'Last Usable IP', value: data.last_usable, formula: 'broadcast - 1', highlight: true },
                 { label: 'Number of Subnets', value: data.number_of_subnets, formula: '2^(NM-CB)' },
-                { label: 'Usable Hosts/Subnet', value: data.usable_hosts, formula: '2^(32-NM) - 2', highlight: true }
+                { label: 'Usable Hosts', value: data.usable_hosts, formula: '2^(32-NM) - 2', highlight: true }
             ];
             
             grid.innerHTML = results.map(r => `
@@ -440,10 +751,105 @@
                 </div>
             `).join('');
             
-            // AI Explanation (if available)
-            if (data.ai_explanations) {
-                document.getElementById('aiSection').style.display = 'block';
-                document.getElementById('aiText').textContent = data.ai_explanations.join(' ');
+            displayExplanation(data);
+        }
+        
+        function displayExplanation(data) {
+            const section = document.getElementById('explanationSection');
+            const content = document.getElementById('explanationContent');
+            
+            if (data.ip === '192.168.50.10' && data.prefix === 24) {
+                section.style.display = 'block';
+                content.innerHTML = `
+                    <div class="explanation-box">
+                        <h4>troubleshooting: default gateway misconfiguration</h4>
+                        <p style="color:#4a4a4a;line-height:1.7;margin-bottom:12px;font-family:'Inter',sans-serif;">
+                            <strong>scenario</strong> — a PC is configured with:
+                        </p>
+                        <div class="mono">
+                            IP: 192.168.50.10<br>
+                            Mask: 255.255.255.0 (/24)<br>
+                            Gateway: 192.168.60.1
+                        </div>
+                        <p style="color:#4a4a4a;line-height:1.7;margin-top:12px;font-family:'Inter',sans-serif;">
+                            <strong>problem</strong> — the PC can communicate locally but not remotely.
+                        </p>
+                        <p style="color:#4a4a4a;line-height:1.7;margin-top:8px;font-family:'Inter',sans-serif;">
+                            <strong>question</strong> — what is wrong?
+                        </p>
+                        <div class="mono" style="background:#e8e8e8;margin-top:8px;">
+                            A. IP address<br>
+                            B. Subnet mask<br>
+                            C. Default gateway<br>
+                            D. MAC address
+                        </div>
+                    </div>
+                    
+                    <div class="explanation-box blue">
+                        <h5>step-by-step solution</h5>
+                        
+                        <p style="font-weight:600;color:#0f0e17;font-family:'Inter',sans-serif;margin-top:12px;">1. find the block size</p>
+                        <div class="mono">
+                            NetMask (NM) = /24<br>
+                            Next Boundary (NB) = 24<br>
+                            24 − 24 = 0 &nbsp;→&nbsp; 2^0 = <strong>1</strong>
+                        </div>
+                        
+                        <p style="font-weight:600;color:#0f0e17;font-family:'Inter',sans-serif;margin-top:16px;">2. find the PC's subnet</p>
+                        <div class="mono">
+                            ...<br>
+                            192.168.49.0<br>
+                            192.168.50.0 ← PC (192.168.50.10) falls here<br>
+                            192.168.51.0<br>
+                            ...
+                        </div>
+                        <p style="font-family:'Inter',sans-serif;color:#4a4a4a;margin-top:6px;">
+                            PC belongs to: <strong>192.168.50.0/24</strong>
+                        </p>
+                        
+                        <p style="font-weight:600;color:#0f0e17;font-family:'Inter',sans-serif;margin-top:16px;">3. find the gateway's subnet</p>
+                        <div class="mono">
+                            ...<br>
+                            192.168.59.0<br>
+                            192.168.60.0 ← Gateway (192.168.60.1) falls here<br>
+                            192.168.61.0<br>
+                            ...
+                        </div>
+                        <p style="font-family:'Inter',sans-serif;color:#4a4a4a;margin-top:6px;">
+                            Gateway belongs to: <strong>192.168.60.0/24</strong>
+                        </p>
+                    </div>
+                    
+                    <div class="explanation-box red">
+                        <h5>the problem</h5>
+                        <p style="font-family:'Inter',sans-serif;color:#4a4a4a;line-height:1.7;">
+                            The PC is on <strong>192.168.50.0/24</strong> and the gateway is on <strong>192.168.60.0/24</strong>.<br>
+                            They are on <strong>different subnets</strong>.
+                        </p>
+                        <p style="font-family:'Inter',sans-serif;color:#4a4a4a;line-height:1.7;margin-top:10px;">
+                            A default gateway <strong>must</strong> be on the same local subnet as the PC.
+                        </p>
+                    </div>
+                    
+                    <div class="explanation-box green">
+                        <h5>the solution</h5>
+                        <p style="font-family:'Inter',sans-serif;color:#4a4a4a;line-height:1.7;">
+                            Change the gateway to an IP on the same subnet:
+                        </p>
+                        <div class="mono" style="background:#e0ece6;">
+                            Correct Gateway: 192.168.50.1 (or any IP in 192.168.50.0/24)
+                        </div>
+                        <div class="answer-box">
+                            ✅ Correct Answer: C. Default gateway
+                        </div>
+                    </div>
+                    
+                    <div class="key-takeaway">
+                        <strong>key takeaway</strong> — always verify that your default gateway belongs to the same subnet as your PC's IP address. If they differ, remote connectivity fails — even if local communication works.
+                    </div>
+                `;
+            } else {
+                section.style.display = 'none';
             }
         }
         
@@ -478,25 +884,24 @@
                 const batchResults = document.getElementById('batchResults');
                 
                 if (data.results) {
-                    let html = '<h4 style="margin-top:15px;color:#2d3748;">Batch Results:</h4><div style="display:grid;gap:10px;">';
+                    let html = '<h4 style="margin-top:12px;font-family:Inter,sans-serif;font-weight:700;color:#0f0e17;font-size:1rem;">batch results</h4>';
                     data.results.forEach(r => {
                         if (r.error) {
-                            html += `<div style="background:#fed7d7;padding:10px;border-radius:8px;color:#c53030;">❌ ${r.ip}: ${r.error}</div>`;
+                            html += `<div class="batch-item" style="border-left-color:#e53170;background:#fef0f0;"><div class="ip-label">${r.ip}</div><div style="color:#b91c1c;">${r.error}</div></div>`;
                         } else {
                             html += `
-                                <div style="background:#f7fafc;padding:12px;border-radius:8px;border-left:4px solid #667eea;">
-                                    <strong style="color:#2d3748;">${r.ip}</strong>
-                                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:5px;font-size:0.9em;">
-                                        <span>Network: <strong>${r.network}</strong></span>
-                                        <span>Broadcast: <strong>${r.broadcast}</strong></span>
-                                        <span>Hosts: <strong>${r.usable_hosts}</strong></span>
-                                        <span>Usable: <strong>${r.first_usable} - ${r.last_usable}</strong></span>
+                                <div class="batch-item">
+                                    <div class="ip-label">${r.ip}</div>
+                                    <div class="details">
+                                        <span>network: <strong>${r.network}</strong></span>
+                                        <span>broadcast: <strong>${r.broadcast}</strong></span>
+                                        <span>hosts: <strong>${r.usable_hosts}</strong></span>
+                                        <span>usable: <strong>${r.first_usable} – ${r.last_usable}</strong></span>
                                     </div>
                                 </div>
                             `;
                         }
                     });
-                    html += '</div>';
                     batchResults.innerHTML = html;
                     batchResults.classList.add('show');
                 }
@@ -511,7 +916,7 @@
         
         function showError(message) {
             const errorDiv = document.getElementById('error');
-            errorDiv.textContent = '❌ ' + message;
+            errorDiv.textContent = '✕ ' + message;
             errorDiv.classList.add('show');
             document.getElementById('results').classList.remove('show');
         }
@@ -520,16 +925,12 @@
             document.getElementById('error').classList.remove('show');
         }
         
-        // Auto-calculate on Enter key
         document.getElementById('ipInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                calculate();
-            }
+            if (e.key === 'Enter') calculate();
         });
         
-        // Auto-calculate on page load with default example
         window.addEventListener('load', () => {
-            setTimeout(calculate, 500);
+            setTimeout(calculate, 400);
         });
     </script>
 </body>
