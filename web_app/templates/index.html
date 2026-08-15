@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Subnet Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #2d3748;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .subtitle {
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .input-section {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .input-group input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            min-width: 200px;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .input-group button {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .input-group button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .input-group button:active {
+            transform: translateY(0);
+        }
+        
+        .quick-links {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .quick-link {
+            padding: 6px 15px;
+            background: #edf2f7;
+            border-radius: 20px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        
+        .quick-link:hover {
+            background: #e2e8f0;
+            border-color: #667eea;
+        }
+        
+        .results {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .results.show {
+            display: block;
+        }
+        
+        .result-card {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .result-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid #667eea;
+        }
+        
+        .result-item .label {
+            font-size: 0.85em;
+            color: #718096;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .result-item .value {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #2d3748;
+            margin-top: 5px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .result-item .formula {
+            font-size: 0.85em;
+            color: #a0aec0;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .result-item.highlight {
+            border-left-color: #48bb78;
+            background: #f0fff4;
+        }
+        
+        .result-item.highlight .value {
+            color: #48bb78;
+        }
+        
+        .ai-explanation {
+            background: linear-gradient(135deg, #ebf8ff 0%, #e0edff 100%);
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin-top: 10px;
+            border-left: 4px solid #4299e1;
+        }
+        
+        .ai-explanation .label {
+            font-weight: 600;
+            color: #2b6cb0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .ai-explanation .text {
+            color: #2d3748;
+            margin-top: 5px;
+            line-height: 1.6;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .badge-ai {
+            background: #4299e1;
+            color: white;
+        }
+        
+        .badge-class {
+            background: #edf2f7;
+            color: #2d3748;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .error.show {
+            display: block;
+        }
+        
+        .batch-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .batch-results {
+            display: none;
+            margin-top: 15px;
+        }
+        
+        .batch-results.show {
+            display: block;
+        }
+        
+        @media (max-width: 640px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .input-group input {
+                min-width: 100%;
+            }
+            
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            🌐 Subnet Calculator
+            <span class="badge badge-ai">AI-Powered</span>
+        </h1>
+        <p class="subtitle">Based on: Understanding the basics of IPv4 addressing</p>
+        
+        <!-- Input Section -->
+        <div class="input-section">
+            <div class="input-group">
+                <input type="text" id="ipInput" placeholder="Enter IP or CIDR (e.g., 192.168.34.221/27)" value="192.168.34.221/27">
+                <button onclick="calculate()">Calculate 🔍</button>
+            </div>
+            
+            <div class="quick-links">
+                <span style="color:#718096;font-size:0.9em;margin-right:5px;">Quick examples:</span>
+                <span class="quick-link" onclick="quickExample('192.168.34.221/27')">192.168.34.221/27</span>
+                <span class="quick-link" onclick="quickExample('172.16.113.1/18')">172.16.113.1/18</span>
+                <span class="quick-link" onclick="quickExample('10.20.60.234/11')">10.20.60.234/11</span>
+                <span class="quick-link" onclick="quickExample('172.20.0.0/28')">172.20.0.0/28</span>
+                <span class="quick-link" onclick="quickExample('192.168.50.10/24')">Gateway Troubleshoot</span>
+            </div>
+        </div>
+        
+        <!-- Loading -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p style="margin-top:15px;color:#718096;">Calculating subnet information...</p>
+        </div>
+        
+        <!-- Error -->
+        <div class="error" id="error"></div>
+        
+        <!-- Results -->
+        <div class="results" id="results">
+            <div class="result-card">
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:15px;">
+                    <h3 style="color:#2d3748;">📊 Results for <span id="displayIP" style="color:#667eea;"></span></h3>
+                    <div>
+                        <span class="badge badge-class" id="displayClass"></span>
+                    </div>
+                </div>
+                
+                <div class="result-grid" id="resultGrid">
+                    <!-- Results will be inserted here -->
+                </div>
+            </div>
+            
+            <!-- AI Explanation -->
+            <div class="result-card" id="aiSection" style="display:none;">
+                <div class="ai-explanation">
+                    <div class="label">🤖 AI-Powered Explanation</div>
+                    <div class="text" id="aiText"></div>
+                </div>
+            </div>
+            
+            <!-- Batch Section -->
+            <div class="batch-section">
+                <h4 style="color:#2d3748;margin-bottom:10px;">📦 Batch Calculator</h4>
+                <p style="color:#718096;font-size:0.9em;margin-bottom:10px;">Enter one IP per line:</p>
+                <textarea id="batchInput" placeholder="192.168.34.221/27&#10;172.16.113.1/18&#10;10.20.60.234/11"></textarea>
+                <button onclick="batchCalculate()" style="margin-top:10px;padding:10px 25px;background:#48bb78;color:white;border:none;border-radius:10px;font-weight:600;cursor:pointer;transition:all 0.2s;">
+                    Calculate All 🚀
+                </button>
+                <div class="batch-results" id="batchResults"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        async function calculate() {
+            const input = document.getElementById('ipInput').value.trim();
+            if (!input) {
+                showError('Please enter an IP address');
+                return;
+            }
+            
+            showLoading(true);
+            hideError();
+            
+            try {
+                const response = await fetch('/api/calculate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ ip: input })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    displayResults(data);
+                } else {
+                    showError(data.error || 'Calculation failed');
+                }
+            } catch (error) {
+                showError('Network error: ' + error.message);
+            }
+            
+            showLoading(false);
+        }
+        
+        function displayResults(data) {
+            document.getElementById('results').classList.add('show');
+            document.getElementById('displayIP').textContent = `${data.ip}/${data.prefix}`;
+            document.getElementById('displayClass').textContent = `Class ${data.class_info || 'Unknown'}`;
+            
+            const grid = document.getElementById('resultGrid');
+            
+            const results = [
+                { label: 'Network Address', value: data.network_address, formula: 'All host bits = 0' },
+                { label: 'Broadcast Address', value: data.broadcast_address, formula: 'All host bits = 1' },
+                { label: 'Subnet Mask', value: data.subnet_mask, formula: 'Dotted decimal' },
+                { label: 'Wildcard Mask', value: data.wildcard_mask, formula: 'Inverse of subnet mask' },
+                { label: 'First Usable IP', value: data.first_usable, formula: 'Network + 1', highlight: true },
+                { label: 'Last Usable IP', value: data.last_usable, formula: 'Broadcast - 1', highlight: true },
+                { label: 'Number of Subnets', value: data.number_of_subnets, formula: '2^(NM-CB)' },
+                { label: 'Usable Hosts/Subnet', value: data.usable_hosts, formula: '2^(32-NM) - 2', highlight: true }
+            ];
+            
+            grid.innerHTML = results.map(r => `
+                <div class="result-item ${r.highlight ? 'highlight' : ''}">
+                    <div class="label">${r.label}</div>
+                    <div class="value">${r.value}</div>
+                    <div class="formula">${r.formula}</div>
+                </div>
+            `).join('');
+            
+            // AI Explanation (if available)
+            if (data.ai_explanations) {
+                document.getElementById('aiSection').style.display = 'block';
+                document.getElementById('aiText').textContent = data.ai_explanations.join(' ');
+            }
+        }
+        
+        function quickExample(ip) {
+            document.getElementById('ipInput').value = ip;
+            calculate();
+        }
+        
+        async function batchCalculate() {
+            const input = document.getElementById('batchInput').value.trim();
+            if (!input) {
+                showError('Please enter at least one IP');
+                return;
+            }
+            
+            const ips = input.split('\n').filter(line => line.trim());
+            if (ips.length === 0) {
+                showError('Please enter valid IPs');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/batch', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ ips: ips })
+                });
+                
+                const data = await response.json();
+                const batchResults = document.getElementById('batchResults');
+                
+                if (data.results) {
+                    let html = '<h4 style="margin-top:15px;color:#2d3748;">Batch Results:</h4><div style="display:grid;gap:10px;">';
+                    data.results.forEach(r => {
+                        if (r.error) {
+                            html += `<div style="background:#fed7d7;padding:10px;border-radius:8px;color:#c53030;">❌ ${r.ip}: ${r.error}</div>`;
+                        } else {
+                            html += `
+                                <div style="background:#f7fafc;padding:12px;border-radius:8px;border-left:4px solid #667eea;">
+                                    <strong style="color:#2d3748;">${r.ip}</strong>
+                                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:5px;font-size:0.9em;">
+                                        <span>Network: <strong>${r.network}</strong></span>
+                                        <span>Broadcast: <strong>${r.broadcast}</strong></span>
+                                        <span>Hosts: <strong>${r.usable_hosts}</strong></span>
+                                        <span>Usable: <strong>${r.first_usable} - ${r.last_usable}</strong></span>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    });
+                    html += '</div>';
+                    batchResults.innerHTML = html;
+                    batchResults.classList.add('show');
+                }
+            } catch (error) {
+                showError('Batch calculation failed: ' + error.message);
+            }
+        }
+        
+        function showLoading(show) {
+            document.getElementById('loading').classList.toggle('show', show);
+        }
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = '❌ ' + message;
+            errorDiv.classList.add('show');
+            document.getElementById('results').classList.remove('show');
+        }
+        
+        function hideError() {
+            document.getElementById('error').classList.remove('show');
+        }
+        
+        // Auto-calculate on Enter key
+        document.getElementById('ipInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calculate();
+            }
+        });
+        
+        // Auto-calculate on page load with default example
+        window.addEventListener('load', () => {
+            setTimeout(calculate, 500);
+        });
+    </script>
+</body>
+</html>
