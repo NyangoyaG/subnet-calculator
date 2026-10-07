@@ -20,7 +20,7 @@ try:
     AI_AVAILABLE = True
 except ImportError:
     AI_AVAILABLE = False
-    print("⚠️ AI Subnet Calculator not found. Using basic calculator.")
+#     print("⚠️ AI Subnet Calculator not found. Using basic calculator.")
 
 app = Flask(__name__)
 CORS(app)  # Allow cross-origin requests
@@ -185,13 +185,13 @@ if __name__ == '__main__':
     hostname = socket.gethostname()
     local_ip = socket.gethostbyname(hostname)
     
-    print("\n" + "="*60)
-    print("🌐 AI-Powered Subnet Calculator Web Server")
-    print("="*60)
-    print(f"\n📍 Access from any browser:")
-    print(f"   Local:    http://localhost:5000")
-    print(f"   Network:  http://{local_ip}:5000")
-    print("\n📱 To access from other devices, use the Network URL")
-    print("="*60 + "\n")
+#     print("\n" + "="*60)
+#     print("🌐 AI-Powered Subnet Calculator Web Server")
+#     print("="*60)
+#     print(f"\n📍 Access from any browser:")
+#     print(f"   Local:    http://localhost:5000")
+#     print(f"   Network:  http://{local_ip}:5000")
+#     print("\n📱 To access from other devices, use the Network URL")
+#     print("="*60 + "\n")
     
     app.run(host='0.0.0.0', port=5000, debug=False)

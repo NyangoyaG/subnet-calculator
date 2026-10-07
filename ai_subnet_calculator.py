@@ -22,8 +22,8 @@ try:
     AI_AVAILABLE = True
 except ImportError:
     AI_AVAILABLE = False
-    print(f"{Fore.YELLOW}⚠️  Ollama not installed. AI features disabled.{Style.RESET_ALL}")
-    print("Run: pip3 install ollama")
+#     print(f"{Fore.YELLOW}⚠️  Ollama not installed. AI features disabled.{Style.RESET_ALL}")
+#     print("Run: pip3 install ollama")
 
 class AISubnetCalculator:
     """AI-Powered Subnet Calculator with Local LLM"""
@@ -47,7 +47,7 @@ class AISubnetCalculator:
         try:
             self.network = ipaddress.ip_network(f"{self.ip_str}/{self.prefix}", strict=False)
         except Exception as e:
-            print(f"{Fore.RED}❌ Invalid IP/prefix combination: {e}{Style.RESET_ALL}")
+#             print(f"{Fore.RED}❌ Invalid IP/prefix combination: {e}{Style.RESET_ALL}")
             sys.exit(1)
         
         self.ip_obj = ipaddress.ip_address(self.ip_str)
@@ -264,44 +264,44 @@ class AISubnetCalculator:
     
     def display_all_answers(self, use_ai=True):
         """Display all 7 answers with nice formatting"""
-        print(f"\n{'='*80}")
-        print(f"{Fore.CYAN}📡 SUBNET CALCULATOR RESULTS{Style.RESET_ALL}")
-        print(f"{'='*80}")
-        print(f"{Fore.YELLOW}IP Address:{Style.RESET_ALL} {self.ip_str}")
-        print(f"{Fore.YELLOW}NetMask:{Style.RESET_ALL} /{self.prefix} ({self.get_subnet_mask()})")
+#         print(f"\n{'='*80}")
+#         print(f"{Fore.CYAN}📡 SUBNET CALCULATOR RESULTS{Style.RESET_ALL}")
+#         print(f"{'='*80}")
+#         print(f"{Fore.YELLOW}IP Address:{Style.RESET_ALL} {self.ip_str}")
+#         print(f"{Fore.YELLOW}NetMask:{Style.RESET_ALL} /{self.prefix} ({self.get_subnet_mask()})")
         ip_class, cb, range_info = self.get_class_info()
-        print(f"{Fore.YELLOW}Class:{Style.RESET_ALL} {ip_class} ({range_info})")
-        print(f"{Fore.YELLOW}Next Boundary:{Style.RESET_ALL} {self.get_next_boundary()}")
-        print(f"{Fore.YELLOW}Block Size:{Style.RESET_ALL} {self.get_block_size()}")
-        print(f"{'-'*80}")
+#         print(f"{Fore.YELLOW}Class:{Style.RESET_ALL} {ip_class} ({range_info})")
+#         print(f"{Fore.YELLOW}Next Boundary:{Style.RESET_ALL} {self.get_next_boundary()}")
+#         print(f"{Fore.YELLOW}Block Size:{Style.RESET_ALL} {self.get_block_size()}")
+#         print(f"{'-'*80}")
         
         # Get all 7 answers
         all_answers = self.get_all_answers()
         
         # Display each question and answer
         for idx, ans in enumerate(all_answers, 1):
-            print(f"\n{Fore.GREEN}Q{idx}. {ans['question']}:{Style.RESET_ALL}")
-            print(f"   {Fore.WHITE}Answer:{Style.RESET_ALL} {Fore.CYAN}{ans['answer']}{Style.RESET_ALL}")
-            print(f"   {Fore.WHITE}Formula:{Style.RESET_ALL} {ans['formula']}")
+#             print(f"\n{Fore.GREEN}Q{idx}. {ans['question']}:{Style.RESET_ALL}")
+#             print(f"   {Fore.WHITE}Answer:{Style.RESET_ALL} {Fore.CYAN}{ans['answer']}{Style.RESET_ALL}")
+#             print(f"   {Fore.WHITE}Formula:{Style.RESET_ALL} {ans['formula']}")
             
             # Get AI explanation if available and enabled
             if use_ai and AI_AVAILABLE:
                 ai_exp = self.get_ai_explanation(ans)
-                print(f"   {Fore.WHITE}🤖 AI Explanation:{Style.RESET_ALL} {ai_exp}")
+#                 print(f"   {Fore.WHITE}🤖 AI Explanation:{Style.RESET_ALL} {ai_exp}")
             else:
-                print(f"   {Fore.WHITE}Explanation:{Style.RESET_ALL} {ans['explanation']}")
+#                 print(f"   {Fore.WHITE}Explanation:{Style.RESET_ALL} {ans['explanation']}")
         
-        print(f"\n{'='*80}")
-        print(f"{Fore.YELLOW}📊 SUMMARY{Style.RESET_ALL}")
-        print(f"{'='*80}")
-        print(f"Network Address:     {self.get_network_address()}")
-        print(f"Broadcast Address:   {self.get_broadcast_address()}")
-        print(f"Subnet Mask:         {self.get_subnet_mask()}")
-        print(f"Wildcard Mask:       {self.get_wildcard_mask()}")
-        print(f"Usable IPs:          {self.get_first_usable()} - {self.get_last_usable()}")
-        print(f"Total Subnets:       {self.get_number_of_subnets()}")
-        print(f"Usable Hosts/Subnet: {self.get_usable_hosts()}")
-        print(f"{'='*80}\n")
+#         print(f"\n{'='*80}")
+#         print(f"{Fore.YELLOW}📊 SUMMARY{Style.RESET_ALL}")
+#         print(f"{'='*80}")
+#         print(f"Network Address:     {self.get_network_address()}")
+#         print(f"Broadcast Address:   {self.get_broadcast_address()}")
+#         print(f"Subnet Mask:         {self.get_subnet_mask()}")
+#         print(f"Wildcard Mask:       {self.get_wildcard_mask()}")
+#         print(f"Usable IPs:          {self.get_first_usable()} - {self.get_last_usable()}")
+#         print(f"Total Subnets:       {self.get_number_of_subnets()}")
+#         print(f"Usable Hosts/Subnet: {self.get_usable_hosts()}")
+#         print(f"{'='*80}\n")
     
     def get_json_output(self):
         """Get all answers as JSON (for API or file output)"""
@@ -333,40 +333,40 @@ def check_ollama_status():
         if 'llama3.2' in result.stdout:
             return True
         else:
-            print(f"{Fore.YELLOW}⚠️  Llama model not found. Pulling llama3.2:3b...{Style.RESET_ALL}")
+#             print(f"{Fore.YELLOW}⚠️  Llama model not found. Pulling llama3.2:3b...{Style.RESET_ALL}")
             subprocess.run(['ollama', 'pull', 'llama3.2:3b'])
             return True
     except:
         return False
 
 def main():
-    print(f"\n{Fore.CYAN}{'='*80}")
-    print(f"🤖 AI-POWERED IPv4 SUBNET CALCULATOR")
-    print(f"Based on: Understanding the basics of IPv4 addressing")
-    print(f"{'='*80}{Style.RESET_ALL}\n")
+#     print(f"\n{Fore.CYAN}{'='*80}")
+#     print(f"🤖 AI-POWERED IPv4 SUBNET CALCULATOR")
+#     print(f"Based on: Understanding the basics of IPv4 addressing")
+#     print(f"{'='*80}{Style.RESET_ALL}\n")
     
     # Check AI availability
     use_ai = False
     if AI_AVAILABLE:
         if check_ollama_status():
             use_ai = True
-            print(f"{Fore.GREEN}✅ AI Enabled (Ollama + Llama 3.2){Style.RESET_ALL}")
+#             print(f"{Fore.GREEN}✅ AI Enabled (Ollama + Llama 3.2){Style.RESET_ALL}")
         else:
-            print(f"{Fore.YELLOW}⚠️  AI disabled (Ollama not running). Using standard explanations.{Style.RESET_ALL}")
-            print(f"   Run: sudo systemctl start ollama")
+#             print(f"{Fore.YELLOW}⚠️  AI disabled (Ollama not running). Using standard explanations.{Style.RESET_ALL}")
+#             print(f"   Run: sudo systemctl start ollama")
     else:
-        print(f"{Fore.YELLOW}⚠️  AI disabled (Ollama not installed). Using standard explanations.{Style.RESET_ALL}")
-        print(f"   Install: curl -fsSL https://ollama.ai/install.sh | sh")
+#         print(f"{Fore.YELLOW}⚠️  AI disabled (Ollama not installed). Using standard explanations.{Style.RESET_ALL}")
+#         print(f"   Install: curl -fsSL https://ollama.ai/install.sh | sh")
     
     while True:
-        print(f"\n{Fore.CYAN}OPTIONS:{Style.RESET_ALL}")
-        print("  1. Enter IP address (auto-detect class)")
-        print("  2. Enter IP in CIDR format (e.g., 192.168.34.221/27)")
-        print("  3. Batch process multiple IPs")
-        print("  4. Export results to JSON")
-        print("  5. Troubleshooting gateway example")
-        print("  6. Test with article examples")
-        print("  7. Exit")
+#         print(f"\n{Fore.CYAN}OPTIONS:{Style.RESET_ALL}")
+#         print("  1. Enter IP address (auto-detect class)")
+#         print("  2. Enter IP in CIDR format (e.g., 192.168.34.221/27)")
+#         print("  3. Batch process multiple IPs")
+#         print("  4. Export results to JSON")
+#         print("  5. Troubleshooting gateway example")
+#         print("  6. Test with article examples")
+#         print("  7. Exit")
         
         choice = input(f"\n{Fore.YELLOW}Enter your choice (1-7): {Style.RESET_ALL}").strip()
         
@@ -383,7 +383,7 @@ def main():
                 calc = AISubnetCalculator(ip_input, prefix)
                 calc.display_all_answers(use_ai=use_ai)
             except Exception as e:
-                print(f"{Fore.RED}❌ Error: {e}{Style.RESET_ALL}")
+#                 print(f"{Fore.RED}❌ Error: {e}{Style.RESET_ALL}")
         
         elif choice == '2':
             cidr_input = input("Enter IP/prefix (e.g., 192.168.34.221/27): ").strip()
@@ -391,12 +391,12 @@ def main():
                 calc = AISubnetCalculator(cidr_input)
                 calc.display_all_answers(use_ai=use_ai)
             except Exception as e:
-                print(f"{Fore.RED}❌ Error: {e}{Style.RESET_ALL}")
+#                 print(f"{Fore.RED}❌ Error: {e}{Style.RESET_ALL}")
         
         elif choice == '3':
-            print(f"\n{Fore.CYAN}Enter IPs one per line (format: IP/prefix){Style.RESET_ALL}")
-            print("Example: 192.168.34.221/27")
-            print("Type 'done' when finished.")
+#             print(f"\n{Fore.CYAN}Enter IPs one per line (format: IP/prefix){Style.RESET_ALL}")
+#             print("Example: 192.168.34.221/27")
+#             print("Type 'done' when finished.")
             
             entries = []
             while True:
@@ -406,19 +406,19 @@ def main():
                 if line:
                     entries.append(line)
             
-            print(f"\n{Fore.GREEN}BATCH RESULTS:{Style.RESET_ALL}\n")
+#             print(f"\n{Fore.GREEN}BATCH RESULTS:{Style.RESET_ALL}\n")
             for entry in entries:
                 try:
                     calc = AISubnetCalculator(entry)
-                    print(f"{Fore.CYAN}▶ {entry}{Style.RESET_ALL}")
-                    print(f"   Network: {calc.get_network_address()}")
-                    print(f"   Broadcast: {calc.get_broadcast_address()}")
-                    print(f"   Usable: {calc.get_first_usable()} - {calc.get_last_usable()}")
-                    print(f"   Hosts: {calc.get_usable_hosts()}")
-                    print(f"   Subnets: {calc.get_number_of_subnets()}")
-                    print()
+#                     print(f"{Fore.CYAN}▶ {entry}{Style.RESET_ALL}")
+#                     print(f"   Network: {calc.get_network_address()}")
+#                     print(f"   Broadcast: {calc.get_broadcast_address()}")
+#                     print(f"   Usable: {calc.get_first_usable()} - {calc.get_last_usable()}")
+#                     print(f"   Hosts: {calc.get_usable_hosts()}")
+#                     print(f"   Subnets: {calc.get_number_of_subnets()}")
+#                     print()
                 except Exception as e:
-                    print(f"{Fore.RED}❌ Error with {entry}: {e}{Style.RESET_ALL}")
+#                     print(f"{Fore.RED}❌ Error with {entry}: {e}{Style.RESET_ALL}")
         
         elif choice == '4':
             ip_input = input("Enter IP/prefix (e.g., 192.168.34.221/27): ").strip()
@@ -426,38 +426,38 @@ def main():
                 calc = AISubnetCalculator(ip_input)
                 result = calc.get_json_output()
                 json_output = json.dumps(result, indent=2)
-                print(f"\n{Fore.GREEN}JSON Output:{Style.RESET_ALL}")
-                print(json_output)
+#                 print(f"\n{Fore.GREEN}JSON Output:{Style.RESET_ALL}")
+#                 print(json_output)
                 
                 # Save to file
                 filename = f"subnet_result_{ip_input.replace('/', '_')}.json"
                 with open(filename, 'w') as f:
                     f.write(json_output)
-                print(f"\n{Fore.GREEN}✅ Saved to: {filename}{Style.RESET_ALL}")
+#                 print(f"\n{Fore.GREEN}✅ Saved to: {filename}{Style.RESET_ALL}")
             except Exception as e:
-                print(f"{Fore.RED}❌ Error: {e}{Style.RESET_ALL}")
+#                 print(f"{Fore.RED}❌ Error: {e}{Style.RESET_ALL}")
         
         elif choice == '5':
-            print(f"\n{Fore.CYAN}TROUBLESHOOTING: Default Gateway Misconfiguration{Style.RESET_ALL}")
-            print("Scenario: PC with IP 192.168.50.10/24, Gateway 192.168.60.1\n")
+#             print(f"\n{Fore.CYAN}TROUBLESHOOTING: Default Gateway Misconfiguration{Style.RESET_ALL}")
+#             print("Scenario: PC with IP 192.168.50.10/24, Gateway 192.168.60.1\n")
             
             pc_calc = AISubnetCalculator("192.168.50.10/24")
             gw_calc = AISubnetCalculator("192.168.60.1/24")
             
-            print(f"PC Network:     {pc_calc.get_network_address()}")
-            print(f"Gateway Network: {gw_calc.get_network_address()}")
+#             print(f"PC Network:     {pc_calc.get_network_address()}")
+#             print(f"Gateway Network: {gw_calc.get_network_address()}")
             
             if pc_calc.get_network_address() == gw_calc.get_network_address():
-                print(f"\n{Fore.GREEN}✅ Both on same subnet. Gateway is correct.{Style.RESET_ALL}")
+#                 print(f"\n{Fore.GREEN}✅ Both on same subnet. Gateway is correct.{Style.RESET_ALL}")
             else:
-                print(f"\n{Fore.RED}❌ They are on DIFFERENT subnets!{Style.RESET_ALL}")
-                print(f"   PC is on:     {pc_calc.get_network_address()}")
-                print(f"   Gateway is on: {gw_calc.get_network_address()}")
-                print(f"\n{Fore.YELLOW}→ Default gateway MUST be on the same local subnet.{Style.RESET_ALL}")
-                print(f"{Fore.CYAN}✅ Correct Answer: C. Default gateway{Style.RESET_ALL}")
+#                 print(f"\n{Fore.RED}❌ They are on DIFFERENT subnets!{Style.RESET_ALL}")
+#                 print(f"   PC is on:     {pc_calc.get_network_address()}")
+#                 print(f"   Gateway is on: {gw_calc.get_network_address()}")
+#                 print(f"\n{Fore.YELLOW}→ Default gateway MUST be on the same local subnet.{Style.RESET_ALL}")
+#                 print(f"{Fore.CYAN}✅ Correct Answer: C. Default gateway{Style.RESET_ALL}")
         
         elif choice == '6':
-            print(f"\n{Fore.CYAN}TESTING WITH ARTICLE EXAMPLES{Style.RESET_ALL}\n")
+#             print(f"\n{Fore.CYAN}TESTING WITH ARTICLE EXAMPLES{Style.RESET_ALL}\n")
             
             examples = [
                 ("192.168.34.221/27", "Should be subnet 192.168.34.192"),
@@ -469,24 +469,24 @@ def main():
             for ip, expected in examples:
                 try:
                     calc = AISubnetCalculator(ip)
-                    print(f"{Fore.GREEN}▶ {ip}{Style.RESET_ALL}")
-                    print(f"   Network: {calc.get_network_address()}")
-                    print(f"   Subnets: {calc.get_number_of_subnets()}")
-                    print(f"   Usable hosts: {calc.get_usable_hosts()}")
-                    print(f"   Expected: {expected}\n")
+#                     print(f"{Fore.GREEN}▶ {ip}{Style.RESET_ALL}")
+#                     print(f"   Network: {calc.get_network_address()}")
+#                     print(f"   Subnets: {calc.get_number_of_subnets()}")
+#                     print(f"   Usable hosts: {calc.get_usable_hosts()}")
+#                     print(f"   Expected: {expected}\n")
                 except Exception as e:
-                    print(f"{Fore.RED}❌ Error with {ip}: {e}{Style.RESET_ALL}")
+#                     print(f"{Fore.RED}❌ Error with {ip}: {e}{Style.RESET_ALL}")
         
         elif choice == '7':
-            print(f"\n{Fore.GREEN}Thank you for using AI-Powered Subnet Calculator! 👋{Style.RESET_ALL}")
+#             print(f"\n{Fore.GREEN}Thank you for using AI-Powered Subnet Calculator! 👋{Style.RESET_ALL}")
             break
         
         else:
-            print(f"{Fore.RED}Invalid choice. Please select 1-7.{Style.RESET_ALL}")
+#             print(f"{Fore.RED}Invalid choice. Please select 1-7.{Style.RESET_ALL}")
 
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print(f"\n\n{Fore.YELLOW}Exiting... Goodbye!{Style.RESET_ALL}")
+#         print(f"\n\n{Fore.YELLOW}Exiting... Goodbye!{Style.RESET_ALL}")
         sys.exit(0)
